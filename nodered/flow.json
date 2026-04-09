@@ -1,0 +1,176 @@
+[
+    {
+        "id": "f35d090634081eb2",
+        "type": "tab",
+        "label": "Fluxo 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e818f561a4a89505",
+        "type": "http in",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "url": "/brokers",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 140,
+        "wires": [
+            [
+                "d482439b666462f9"
+            ]
+        ]
+    },
+    {
+        "id": "d482439b666462f9",
+        "type": "http request",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "https://brasilapi.com.br/api/cvm/corretoras/v1",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "e45568e34175e66f"
+            ]
+        ]
+    },
+    {
+        "id": "e45568e34175e66f",
+        "type": "function",
+        "z": "f35d090634081eb2",
+        "name": "Format Brokers",
+        "func": "let html = `\n<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>Brokers</title>\n<style>\nbody { font-family: Arial; padding: 20px; background: #f4f4f4; }\n.card {\n  background: white;\n  padding: 10px;\n  margin-bottom: 10px;\n  border-radius: 8px;\n}\n</style>\n</head>\n<body>\n<h1>Corretoras</h1>\n`;\n\nmsg.payload.forEach(b => {\n  html += `<div class=\"card\">\n    ${b.nome_social} - ${b.municipio || 'Sem cidade'} / ${b.cnpj}\n  </div>`;\n});\n\nhtml += \"</body></html>\";\n\nmsg.payload = html;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 140,
+        "wires": [
+            [
+                "f25fecd8f6ba8822"
+            ]
+        ]
+    },
+    {
+        "id": "f25fecd8f6ba8822",
+        "type": "http response",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "aa47af5316d90272",
+        "type": "http in",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "url": "/cep/:cep",
+        "method": "get",
+        "upload": false,
+        "skipBodyParsing": false,
+        "swaggerDoc": "",
+        "x": 90,
+        "y": 200,
+        "wires": [
+            [
+                "8ab0d1def99dca38"
+            ]
+        ]
+    },
+    {
+        "id": "8ab0d1def99dca38",
+        "type": "function",
+        "z": "f35d090634081eb2",
+        "name": "Build URL",
+        "func": "msg.url = `https://brasilapi.com.br/api/cep/v1/${msg.req.params.cep}`;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 260,
+        "y": 200,
+        "wires": [
+            [
+                "9da71badb50708fb"
+            ]
+        ]
+    },
+    {
+        "id": "9da71badb50708fb",
+        "type": "http request",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "method": "GET",
+        "ret": "obj",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 440,
+        "y": 200,
+        "wires": [
+            [
+                "575ddaca23ecea87"
+            ]
+        ]
+    },
+    {
+        "id": "575ddaca23ecea87",
+        "type": "function",
+        "z": "f35d090634081eb2",
+        "name": "Format CEP",
+        "func": "const c = msg.payload;\n\nmsg.payload = `\n<!DOCTYPE html>\n<html>\n<head>\n<meta charset=\"UTF-8\">\n<title>CEP</title>\n<style>\nbody { font-family: Arial; padding: 20px; }\n.box { background: #f4f4f4; padding: 20px; border-radius: 10px; }\n</style>\n</head>\n<body>\n<div class=\"box\">\n<h1>Resultado</h1>\n<p><b>Rua:</b> ${c.street}</p>\n<p><b>Bairro:</b> ${c.neighborhood}</p>\n<p><b>Cidade:</b> ${c.city}</p>\n<p><b>Estado:</b> ${c.state}</p>\n</div>\n</body>\n</html>\n`;\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 200,
+        "wires": [
+            [
+                "a0e558dcfdc7de23"
+            ]
+        ]
+    },
+    {
+        "id": "a0e558dcfdc7de23",
+        "type": "http response",
+        "z": "f35d090634081eb2",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 650,
+        "y": 260,
+        "wires": []
+    }
+]
