@@ -226,3 +226,24 @@ HTTP In → HTTP Request → Function → HTTP Response
 ## 👨‍💻 Author
 
 Gilmar Weimar
+
+
+## 📸 Screenshots
+
+### 🖥️ Frontend - Lista de Tasks
+![Frontend Home](prints/front-home.png)
+
+### 📝 Frontend - Cadastro/Edição
+![Frontend Form](prints/front-form.png)
+
+### 🔗 Backend - Swagger API
+![API Endpoints](prints/endpoints.png)
+
+### 🗄️ Banco de Dados
+![Database](prints/bd.png)
+
+### 🔄 Node-RED - Fluxo
+![Node-RED Flow](prints/node-red.png)
+
+### 📊 Node-RED - Resultado
+![Node-RED Result](prints/node-red-results.png)
