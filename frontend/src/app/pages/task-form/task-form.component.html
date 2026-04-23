@@ -1,0 +1,41 @@
+<mat-card class="form-card">
+  <h2>{{ isEdit ? 'Editar Task' : 'Nova Task' }}</h2>
+
+  <form (ngSubmit)="save()" class="form">
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Título</mat-label>
+      <input matInput [(ngModel)]="task.title" name="title" required />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Descrição</mat-label>
+      <input matInput [(ngModel)]="task.description" name="description" />
+    </mat-form-field>
+
+    <div class="row">
+      <mat-form-field appearance="outline" class="half">
+        <mat-label>Prioridade</mat-label>
+        <mat-select [(ngModel)]="task.priority" name="priority">
+          <mat-option value="Low">Low</mat-option>
+          <mat-option value="Normal">Normal</mat-option>
+          <mat-option value="High">High</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="half">
+        <mat-label>Status</mat-label>
+        <mat-select [(ngModel)]="task.status" name="status">
+          <mat-option value="NotStarted">Not Started</mat-option>
+          <mat-option value="InProgress">In Progress</mat-option>
+          <mat-option value="Completed">Completed</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit">
+      Salvar
+    </button>
+
+  </form>
+</mat-card>

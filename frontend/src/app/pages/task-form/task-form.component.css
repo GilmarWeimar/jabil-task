@@ -1,0 +1,25 @@
+.form-card {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 28px;
+  border-radius: 12px;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.half {
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+}
